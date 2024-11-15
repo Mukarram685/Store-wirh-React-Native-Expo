@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "801517922816",
+    "project_id": "learn-expo-cf082",
+    "storage_bucket": "learn-expo-cf082.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801517922816:android:5f2ddfa4998dcc4e7206e5",
+        "android_client_info": {
+          "package_name": "learnExpo.firebase2.asdf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgwh5LbtWqY34XCz-1Lt3iFVnxeBFpzrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
