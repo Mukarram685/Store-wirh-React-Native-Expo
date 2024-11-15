@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/Screen/Cart.jsx", "app/Screen/Home.jsx", "app/Components/Card.jsx", "app/Components/BuyPage.jsx", "app/index.jsx", "app/_layout.jsx", "app/Components/items.jsx", "app/Screen/Category.jsx"  ]
 }

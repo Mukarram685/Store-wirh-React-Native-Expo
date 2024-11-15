@@ -1,0 +1,163 @@
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { addToCart, incrementQuantity } from '../Store/CratSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+const BuyPage = ({ route }) => {
+    const { item } = route.params || {};
+    const { name, img, price, size, description, reviews } = item || {};
+
+    const dispatch = useDispatch();  // For dispatching actions
+
+    // Select specific item's quantity from the cart
+    const cartItem = useSelector(state =>
+        state.cart.items.find(cartItem => cartItem.name === name)
+    );
+
+    const itemQuantity = cartItem?.quantity || 0; // Set to 0 if item is not in cart
+
+    const handleAddToCart = () => {
+        dispatch(addToCart(item));  // Add item to cart
+    };
+
+    const handleIncrementQuantity = () => {
+        dispatch(incrementQuantity(item));
+    };
+
+    return (
+        <View style={styles.container}>
+            {item ? (
+                <>
+                    <View style={styles.imgContainer}>
+                        <Image source={{ uri: img }} style={styles.img} />
+                    </View>
+
+                    {/* Item Name and Reviews Section */}
+                    <View style={styles.detailsContainer}>
+                        <Text style={styles.name}>{name}</Text>
+                        <View style={styles.reviewsContainer}>
+                            <Text style={styles.size}>${size}</Text>
+                            <Text style={styles.reviews}>Reviews: {reviews}</Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.line}></View>
+
+                    {/* Description Section */}
+                    <View style={styles.descriptionContainer}>
+                        <Text style={styles.desHeading}>Product Description:</Text>
+                        <Text style={styles.description}>{description}</Text>
+                    </View>
+
+                    <View>
+                        <View><Text>${price}</Text></View>
+
+                        {/* Quantity Control */}
+                        <View style={styles.quantityContainer}>
+                            <TouchableOpacity onPress={handleIncrementQuantity}>
+                                <Text>+</Text>
+                            </TouchableOpacity>
+                            <Text>{itemQuantity}</Text>
+                            <TouchableOpacity onPress={() => { /* Add decrement functionality here */ }}>
+                                <Text>-</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View>
+                            <TouchableOpacity style={styles.cartbut} onPress={handleAddToCart}>
+                                <Text>Add to Cart</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </>
+            ) : (
+                <Text>No item found!</Text>
+            )}
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 10,
+        paddingTop: 30,
+        paddingHorizontal: 10,
+        margin: 10
+    },
+    imgContainer: {
+        marginBottom: 20,
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 10
+    },
+    img: {
+        width: 300,
+        height: 300,
+        borderRadius: 10
+    },
+    detailsContainer: {
+        marginBottom: 20,
+        alignItems: 'center',
+        width: '100%',
+        backgroundColor: 'white',
+        padding: 10,
+        borderRadius: 10
+    },
+    name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10
+    },
+    reviewsContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    reviews: {
+        fontSize: 18,
+        color: '#555'
+    },
+    size: {
+        fontSize: 18,
+        color: '#555'
+    },
+    line: {
+        height: 3,
+        width: '100%',
+        backgroundColor: 'white',
+        borderRadius: 10
+    },
+    descriptionContainer: {
+        paddingHorizontal: 10,
+        marginTop: 2,
+        width: '100%',
+        borderRadius: 10
+    },
+    desHeading: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10
+    },
+    description: {
+        fontSize: 16,
+        color: '#333',
+        textAlign: 'center',
+        lineHeight: 24
+    },
+    quantityContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 10
+    },
+    cartbut: {
+        padding: 10,
+        borderRadius: 10,
+        alignItems: "center",
+        backgroundColor: "white"
+    }
+});
+
+export default BuyPage;
